@@ -10,7 +10,8 @@
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
-            [rs.ajax-login :as ajax-login]))
+            ;; [rs.ajax-login :as ajax-login]
+            ))
 
 ;;; SERVER
 
