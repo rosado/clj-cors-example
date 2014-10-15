@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Client Application</title>
+    <style type="text/css" media="screen">
+div#remote-content {background-color: #fefefe;
+    </style>
+  </head>
+  <body>
+    <h1>This is client, dude</h1>
+
+    <div id="remote-content">
+      *nothing*
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+var cors_unproteced = function() {
+$.ajax("http://localhost:3000/unprotected",{
+  success: function(data, status, xhr){
+    $("#remote-content").html(data);},
+  crossDomain: true
+  });
+};
+
+var cors_protected = function() {
+$.ajax("http://localhost:3000/protected",
+  {success: function(data, status, xhr){
+    $("#remote-content").html(data);
+  },
+  contentType: "application/edn",
+  crossDomain: true});
+};
+
+var cors_protected_basic = function() {
+$.ajax("http://localhost:3000/protected",
+  {success: function(data, status, xhr){
+    $("#remote-content").html(data);
+  },
+  //contentType: "application/edn",
+  crossDomain: true,
+  //data: {username: "roland", password: "pwd"},
+  beforeSend: function(xhr){
+    xhr.setRequestHeader("Authorization", "Basic " + btoa("roland" + ":" +  "pwd"));
+  }});
+};
+
+
+var cors_login = function() {
+$.ajax(
+  "http://localhost:3000/login",
+  {success: function(data, status, xhr){
+    $("#remote-content").html(data);
+  },
+  contentType: "application/edn",
+  type: "POST",
+  //crossDomain: true,
+  data: {username: "roland", password: "pwdaaa"},
+  xhrFields: {withCredentials: true}
+});
+};
+
+
+</script>
+  </body>
+</html>
